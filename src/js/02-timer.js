@@ -10,7 +10,31 @@ const refs = {
   dataMinutes: document.querySelector('span[data-minutes]'),
   dataSeconds: document.querySelector('span[data-seconds]'),
 };
-// const btnStart = document.querySelector('button[data-start]');
+
+const timer = {
+  intervalId: null,
+  isActive: false,
+  start(future) {
+    if (this.isActive) {
+      return;
+    }
+    // const startTime = Date.now();
+    const startTime = future;
+    this.isActive = true;
+    this.intervalId = setInterval(() => {
+      const currentTime = Date.now();
+      const countingTime =  currentTime - startTime;
+      const time = convertMs(countingTime);
+      if (countingTime < 1000) {
+        clearInterval(intervalId);
+        
+  }
+        watchFaceUpdate(time);
+    }, 1000);
+    console.log(intervalId)
+  }
+};
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -24,6 +48,12 @@ const options = {
       refs.startBtn.disabled = false;
     }
     // console.log(selectedDates[0]);
+    
+    refs.startBtn.addEventListener('click', () => {
+      const futureDate = selectedDates[0].getTime();
+      console.log()
+  timer.start(futureDate);
+})
   },
 };
 refs.startBtn.disabled = true;
@@ -31,26 +61,7 @@ flatpickr("#datetime-picker", options);
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 };
-const timer = {
-  intervalId: null,
-  isActive: false,
-  start() {
-    if (this.isActive) {
-      return;
-    }
-    const startTime = Date.now();
-    this.isActive = true;
-    this.intervalId = setInterval(() => {
-      const currentTime = Date.now();
-      const countingTime = currentTime - startTime;
-      const time = convertMs(countingTime);
-      if (countingTime < 1000) {
-    clearInterval(intervalId);
-  }
-        watchFaceUpdate(time);
-    }, 1000);
-  }
-};
+
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -74,7 +85,5 @@ function watchFaceUpdate({ days, hours, minutes, seconds }){
   refs.dataSeconds.textContent = `${seconds}`;
 };
 // timer.start();
-refs.startBtn.addEventListener('click', () => {
-  timer.start();
-})
+
 console.log(convertMs(2000));
