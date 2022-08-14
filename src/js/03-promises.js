@@ -29,11 +29,6 @@ refs.onForm.addEventListener('submit', e => {
   }
 });
 
-
-
-
-
-
 function createPromise(position, delay) {
 
   
