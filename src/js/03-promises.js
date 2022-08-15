@@ -20,7 +20,8 @@ refs.onForm.addEventListener('submit', e => {
     delayStepCounter = delayValues + stepValues * i;
     createPromise(promisePosition, delayStepCounter).then(sucsesMessage => {
     Notiflix.Notify.success(sucsesMessage);
-  })
+    })
+    
   .catch((rejectMessage) => {
     
     Notiflix.Notify.failure(rejectMessage);
@@ -51,15 +52,7 @@ function createPromise(position, delay) {
   
   
 };
-//  createPromise(2, 1500)
 
-//   .then(({ position, delay }) => {
-//     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-    
-//     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
 
 
 
