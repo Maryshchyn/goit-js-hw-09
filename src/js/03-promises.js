@@ -18,6 +18,10 @@ refs.onForm.addEventListener('submit', e => {
   for (let i = 0; i < amountValues; i += 1){
     promisePosition += 1;
     delayStepCounter = delayValues + stepValues * i;
+    if (Math.sign(delayStepCounter) === -1) {
+      return Notiflix.Notify.failure('Do not enter a negative value');
+      
+    }
     createPromise(promisePosition, delayStepCounter).then(sucsesMessage => {
     Notiflix.Notify.success(sucsesMessage);
     })
